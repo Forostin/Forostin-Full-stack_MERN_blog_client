@@ -1,0 +1,111 @@
+li{
+ margin: 20px;
+  text-align: center;
+}
+
+button{
+  background-color: darkgray;
+  border: 2px black;
+  border-radius: 10px;
+  height: 40px;
+  font: bold  120% "Nunito" ; 
+  text-shadow: 1px 2px 3px white ;
+  box-shadow: 6px 4px 7px rgb(35, 166, 31);
+}
+button:hover{
+  background-color:  rgb(185, 242, 159);
+}
+.block_button{
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+
+}
+
+.navbar {
+    /* padding: 2%; */
+    display: flex;
+    justify-content:space-around; 
+    flex-direction: row;
+  }
+ 
+.text_header{
+    display: flex;
+    justify-content: center;
+    color: aliceblue;
+    text-align: center;  
+    padding: 2px;  
+    background-color: brown;
+  }
+
+.link_a {
+    color: rgb(198, 186, 186);
+    font-size: 18px;
+    line-height: 50px;
+    text-decoration-line: none;
+    text-align: center;  
+ }
+  
+.link_a:hover {
+    color: rgb(185, 242, 159);
+ }
+  
+.link_active {
+    color: rgb(9, 158, 238);
+    font-size: 18px;
+    line-height: 50px;
+    text-decoration-line: none;
+    text-align: center; 
+}
+
+.link_active:hover {
+    color: rgb(185, 242, 159);
+ }
+  
+  .block_button{
+    display: flex;
+    justify-content: center;
+    /* height: 40px; */
+  }
+
+.block_links{
+    display: flex;
+    list-style-type: none;
+}
+
+
+
+
+
+
+  .title {
+    font-weight: 600;
+    line-height: 20px;
+  }
+  
+  .menu {
+     /* margin-top: 13%; */
+     /* width: 100%; */
+    position: fixed;
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 40px;
+  }
+  
+ 
+
+
+
+  
+  .footer {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .test{
+    width: 50px;
+    height: 50px;
+    background-color: brown;
+  }

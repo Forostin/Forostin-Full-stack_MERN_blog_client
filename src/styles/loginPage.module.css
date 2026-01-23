@@ -1,0 +1,40 @@
+.form{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    color: rgb(3, 75, 137);
+    text-align: center;  
+    padding: 2px;  
+    margin: 15px;
+    background-color: rgb(182, 246, 180);
+    border-radius: 10px;
+  }
+
+.labelForm{
+ 
+    font-size: 20px;
+    margin: 15px;
+}
+
+input{
+    font-size: 15px;
+    padding: 5px;
+    margin-left: 5px;
+    background-color: rgb(219, 218, 218);
+    border-color: rgb(3, 75, 137);
+    border-radius: 5px;
+}
+
+.wrapButton{
+    display: flex;
+    justify-content: center;
+}
+
+.wrapButton button{
+    margin: 20px;
+}
+
+a{
+    color: rgb(15, 7, 239);
+    font-size: 23px;
+}

@@ -1,0 +1,27 @@
+body {
+  margin: 0;
+  font-family: "Nunito", serif;
+  background: #44526e;
+  /* background: -webkit-linear-gradient( to right , #627290, #141e30 ); */
+  background: linear-gradient(to right , #606871, #141e30);
+  min-height: 100vh;
+  
+  /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; */
+
+  /*  <uniquifier>: Use a unique and descriptive class name */
+  .nunito-poppins{
+    font-family: "Nunito", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+  }
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}

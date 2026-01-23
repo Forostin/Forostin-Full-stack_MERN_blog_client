@@ -1,0 +1,54 @@
+.formPost{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    color: rgb(2, 62, 115);
+    text-align: center;  
+    padding: 10px;  
+    margin: 5% 10%;
+    background-color: rgb(167, 169, 167);
+    border-radius: 10px;
+
+    position: relative;
+}
+
+.labelForm{
+    font-size: 20px;
+    margin: 15px;
+}
+
+.inputText{
+    font-size: 15px;
+    padding: 5px;
+    margin-left: 20px;
+    background-color: rgb(219, 218, 218);
+    border-color: rgb(3, 75, 137);
+    border-radius: 5px;
+}
+
+.buttonAddPost{
+    background: rgb(125, 132, 197);
+    margin: 20px;
+    text-align: center;
+    padding: 5px;
+}.buttonCancel{
+    background: rgb(245, 96, 187);
+    margin: 20px;
+    text-align: center;
+    padding: 5px;
+}
+
+.wrapButton {
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+/* .imagePost{ */
+    /* position: absolute; */
+    /* top: 20%;
+    left: 50%; */
+    /* transform: translate(-50%, -50%); */
+    /* max-height: 50px; */
+    /* max-width: 50%; */   
+/* } */
