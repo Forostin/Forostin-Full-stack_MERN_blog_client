@@ -9,24 +9,26 @@ export const PostPage = ()=>{
    const [post, setPost] = useState(null);
    const params = useParams();
   
-   const fetchPost = useCallback(async()=>{
-      const {data } = await axios.get(`/posts/${params.id}`) 
-      setPost(data)
-   },[params.id]);
+  //  const fetchPost = useCallback(async()=>{
+  //     const {data } = await axios.get(`/posts/${params.id}`) 
+  //     setPost(data)
+  //  },[params.id]);
 
-     useEffect(()=>{
-      fetchPost()   
-   },[fetchPost]);
-
+  //    useEffect(()=>{
+  //     fetchPost()   
+  //  },[fetchPost]);
+    useEffect(() => {
+        axios.get(`/posts/${params.id}`).then(({ data }) => {
+               setPost(data);
+        });
+    }, [params.id]);
+  
     if (!post){
         return (
                 <div> 
                         Статті не знайдено.
                 </div>
         )};
-
-  
-
     console.log(post)
 
 //  ✅ Форматирование даты 
@@ -41,7 +43,7 @@ export const PostPage = ()=>{
 
     return ( 
       <div>
-         <button><Link to={'/posts'}>Назад</Link></button> 
+         <button><Link to={`/posts`}>Всі статті</Link></button> 
 
          <div>
              <div>

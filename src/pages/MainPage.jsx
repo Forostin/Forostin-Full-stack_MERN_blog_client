@@ -13,16 +13,16 @@ export const MainPage = ()=>{
     const dispatch = useDispatch();
 
     const { posts, popularPosts } = useSelector((state) => state.post);
-   
-
+   // =========================================
     useEffect(()=>{
         dispatch(getAllPosts())  
      }, [dispatch]) 
+     
     console.log(posts)
-       console.log(popularPosts)
+    console.log(popularPosts)
 
-       const postState = useSelector((state) => state.post);
-console.log(postState);
+//        const postState = useSelector((state) => state.post);
+// console.log(postState);
 
 
     if (!popularPosts){
@@ -37,16 +37,16 @@ console.log(postState);
                   <h1>Добро пожаловать в наш блог!</h1>
                   <h3>Для возможности оставлять комментарии пройдите авторизацию.</h3>                 
                </div>
-               <img src={facesImage} alt=''></img>
-               <div>
+               <div className={styles.postsBlock}>
                   <p className={styles.title}>Популярне :</p>
                   {
                      popularPosts?.map((popularPosts, index)=>(
-                       <PopularPost key={index} popularPosts={popularPosts}/>
+                       <PopularPost key={index} popularPosts={popularPosts} />
                      ))
                   }
                                    
                </div>
+                       
                <div className={styles.wrapImg}> 
                     <img src={people} alt=''></img>
                </div>

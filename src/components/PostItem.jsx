@@ -23,7 +23,7 @@ export const PostItem = ({post})=>{
   });
     return(
 
-      <Link to={`/${post._id}`}>  
+      <Link to={`/${post._id}`}  className={styles.link}>  
         <div className={styles.post}> 
                          
             <div className={styles.imageWrap}>

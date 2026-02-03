@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 import styles from '../styles/post.module.css';
 
-export const PopularPost = ({popularPosts, post})=>{
+export const PopularPost = ({popularPosts})=>{
 
 //   // ✅ Форматирование даты 
   const date = new Date(popularPosts.createdAt);
@@ -24,7 +24,7 @@ export const PopularPost = ({popularPosts, post})=>{
         )
     }
     return(
-    //   <Link to={`/${post._id}`}> 
+      <Link to={`/posts/${popularPosts._id}`}  className={styles.link}> 
         <div className={styles.post} > 
              <div className={styles.title}>заголовок статті : "{popularPosts.title}"</div>
             {/* <div>IMAGE</div> */}
@@ -37,6 +37,6 @@ export const PopularPost = ({popularPosts, post})=>{
             <div className={styles.data}><AiOutlineMessage /> <span>0</span> </div>
             <p className={styles.text}>Post Text</p>
         </div>
-    //   </Link>
+     </Link>
     )       
 }
