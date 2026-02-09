@@ -3,7 +3,6 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    border: #4a4a6b solid 2px;
 }
 
 .data,.user{
@@ -23,10 +22,6 @@
     color: white;
 }
 .image{
-  /* width: 50%; */
-  /* display: flex;
-  justify-content: center; */
-  /* align-items: center;  */
   height: 300px; 
   border: 4px solid #4645a9;
   margin: 0 auto;

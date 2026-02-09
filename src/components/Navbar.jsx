@@ -21,19 +21,22 @@ export const Navbar = ()=>{
    return ( 
    <div>
      <div className={styles.navbar}>
-        <p className={styles.text_header}>ЕЕЕ</p>
+             <NavLink    to = { '/' }
+                       href='/' 
+                       className={ ( {isActive} ) => isActive  ?  styles.link_active : styles.link_a }
+                    >         
+                     <p className={styles.text_header}>ЕЕЕ</p>
+             </NavLink>
             
              <ul className={styles.block_links}>
                 <li>
                     <NavLink 
                        to = { '/' }
-                       href='/' 
                        className={ ( {isActive} ) => isActive  ?  styles.link_active : styles.link_a }
                     > Главная
                     </NavLink>
                 </li>
 
-                {/* { isAuth &&  */}
                 <li>
                     <NavLink
                        to = { '/posts' }
@@ -42,7 +45,18 @@ export const Navbar = ()=>{
                        > Посты
                     </NavLink>
                 </li>
-                {/* } */}
+               
+
+               { isAuth && 
+                <li>
+                    <NavLink
+                       to = { '/posts/me' }
+                       href='/posts' 
+                       className={ ( {isActive} ) => isActive  ?  styles.link_active : styles.link_a }
+                       >Мои Посты
+                    </NavLink>
+                </li>
+               } 
 
                 { isAuth && 
                   <li>

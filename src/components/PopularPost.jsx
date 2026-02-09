@@ -2,7 +2,7 @@ import React from "react";
 import { AiFillEye, AiOutlineMessage } from 'react-icons/ai'
 import { Link } from "react-router-dom";
 
-import styles from '../styles/post.module.css';
+import styles from '../styles/popularPost.module.css';
 
 export const PopularPost = ({popularPosts})=>{
 

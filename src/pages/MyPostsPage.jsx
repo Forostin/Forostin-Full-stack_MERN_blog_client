@@ -1,23 +1,30 @@
-import React, { useEffect } from 'react';
+import React, {useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import facesImage from '../images/face.png'
 import people from '../images/people.jpg'
 import styles from '../styles/mainPage.module.css'
 import {PostItem} from '../components/PostItem.jsx'
-import {PopularPost} from '../components/PopularPost.jsx'
-import  {getAllPosts}  from '../redux/features/post/postSlice.js';
+import axios from '../utils/axios.js';
 
+export const MyPostsPage = ()=>{
+    // const dispatch = useDispatch();
+    const [posts, setPosts]  = useState([]);
 
-export const PostsPage = ()=>{
-    const dispatch = useDispatch();
-     const { posts, popularPosts } = useSelector((state) => state.post);
+    const fetchMyPosts = async ()=>{
+        try {
+             const {data} = await axios.get('/posts/me')
+             setPosts(data);
+        } catch (error) {
+             console.log(error)
+        }
+    }
 
     useEffect(()=>{
-        dispatch(getAllPosts())  
-     }, [dispatch]) 
+        fetchMyPosts()
+     }, []) 
     console.log(posts)
-     console.log(popularPosts)
+    
     if (!posts){
         return (
                 <div> 
@@ -33,11 +40,10 @@ export const PostsPage = ()=>{
                           <PostItem key={index} post={post} />
                         ))
                   }
-                  
                </div>
                <img src={facesImage} alt=''></img>
                <div className={styles.wrapImg}> 
                     <img src={people} alt=''></img>
-               </div>
+               </div>          
         </div>
 };

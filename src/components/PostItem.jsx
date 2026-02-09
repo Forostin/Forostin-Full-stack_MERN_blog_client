@@ -43,7 +43,7 @@ export const PostItem = ({post})=>{
                 <div className={styles.data}>data : {formattedDate}</div>
             </div>         
             
-            <p className={styles.text}>Post Text{post.text}</p>
+            <p className={styles.text}>Post Text : " {post.text}"</p>
             <div className={styles.user}><AiFillEye /> <span>{post.viewsCount}</span> </div>    
             <div className={styles.data}><AiOutlineMessage /> <span>{post.comments?.length}</span> </div>
         </div>

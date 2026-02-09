@@ -12,6 +12,7 @@ import { RegisterPage } from './pages/RegisterPage.jsx';
 import { LoginPage } from './pages/LoginPage.jsx';
 import { EditPostPage } from './pages/EditPostPage.jsx';
 import { ToastContainer } from 'react-toastify';
+import { MyPostsPage } from './pages/MyPostsPage.jsx';
 import './App.css';
 
 
@@ -26,6 +27,7 @@ function App() {
         <Route path='posts' element={<PostsPage />}  />
         <Route path=':id' element={<PostPage />}  />
         <Route path='posts/:id' element={<PostPage />}  />
+        <Route path='posts/me' element={<MyPostsPage />}  />
         <Route path=':id/edit' element={<EditPostPage />}  />
         <Route path='new' element={<AddPostPage />}  />  
         <Route path='register' element={<RegisterPage />}  /> 
