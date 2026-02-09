@@ -25,7 +25,7 @@ export const Navbar = ()=>{
                        href='/' 
                        className={ ( {isActive} ) => isActive  ?  styles.link_active : styles.link_a }
                     >         
-                     <p className={styles.text_header}>ЕЕЕ</p>
+                     <p className={styles.text_header}>MERN</p>
              </NavLink>
             
              <ul className={styles.block_links}>

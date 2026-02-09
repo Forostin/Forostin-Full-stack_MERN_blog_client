@@ -49,3 +49,11 @@
   text-decoration: none;
   color: inherit;
 }
+.buttonWrap{
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+.button{
+  margin: 10px;
+}

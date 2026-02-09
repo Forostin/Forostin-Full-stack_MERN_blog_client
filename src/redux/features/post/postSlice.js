@@ -30,6 +30,18 @@ export const getAllPosts = createAsyncThunk( 'posts/getAllPosts',
    }
 )
 
+export const removePost = createAsyncThunk('post/removePost',
+   async ( id ) => {
+       try {
+               const {data} = await axios.delete(`posts/${id}`, id)
+               return  data  
+       } catch (error) {
+               console.log(error)
+       }
+   }
+)
+
+
 export const postSlice = createSlice(
     { name: 'post',
       initialState,
@@ -56,12 +68,26 @@ export const postSlice = createSlice(
                     state.loading = false;
                     state.posts = action.payload.posts;
                     state.popularPosts = action.payload.popularPosts;
-                  });
+                  })
  
                 builder.addCase(getAllPosts.rejected, (state) => {
                     state.loading = false;
-                  })       
-        
+                  })
+                
+          //  Удаление поста       
+                builder.addCase(removePost.pending, (state) => {
+                    state.loading = true;
+                  })
+                builder.addCase(removePost.fulfilled, (state, action) => {
+                    state.loading = false;
+                    state.posts = state.posts.filter( 
+                      (post) => post._id !== action.payload._id 
+                    )
+                  })
+                builder.addCase(removePost.rejected, (state) => {
+                    state.loading = false;
+                  })
+                
       } 
     }
 );
