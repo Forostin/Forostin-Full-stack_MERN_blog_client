@@ -5,26 +5,33 @@ import facesImage from '../images/face.png'
 import people from '../images/people.jpg'
 import styles from '../styles/mainPage.module.css'
 import {PostItem} from '../components/PostItem.jsx'
-import axios from '../utils/axios.js';
+
+import { getMyPosts } from '../redux/features/post/postSlice.js';
 
 export const MyPostsPage = ()=>{
-    // const dispatch = useDispatch();
-    const [posts, setPosts]  = useState([]);
+    const dispatch = useDispatch();
+    const { posts, loading } = useSelector((state) => state.post);
+    // const [posts, setPosts]  = useState([]);
 
-    const fetchMyPosts = async ()=>{
-        try {
-             const {data} = await axios.get('/posts/me')
-             setPosts(data);
-        } catch (error) {
-             console.log(error)
-        }
-    }
+    // const fetchMyPosts = async ()=>{
+    //     try {
+    //          const {data} = await axios.get('/posts/me')
+    //          setPosts(data);
+    //     } catch (error) {
+    //          console.log(error)
+    //     }
+    // }
 
-    useEffect(()=>{
-        fetchMyPosts()
-     }, []) 
-    console.log(posts)
+    // useEffect(()=>{
+    //     fetchMyPosts()
+    //  }, []) 
+ 
+     useEffect(()=>{
+        dispatch(getMyPosts());
+     },[dispatch]);
     
+    if (loading) return <div>Загрузка...</div>
+
     if (!posts){
         return (
                 <div> 

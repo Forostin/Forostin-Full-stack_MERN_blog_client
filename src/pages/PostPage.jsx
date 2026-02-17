@@ -84,7 +84,11 @@ export const PostPage = ()=>{
                                       className={styles.button}
                                       >видалити <AiTwotoneDelete />
                                    </button>
-                                   <button  className={styles.button}>редагувати <AiTwotoneEdit /> </button> 
+                                   <button className={styles.button}>
+                                     <Link to={`/${params.id}/edit`}>
+                                         редагувати <AiTwotoneEdit /> 
+                                     </Link>
+                                   </button> 
                                 </div>
                                )
                             }

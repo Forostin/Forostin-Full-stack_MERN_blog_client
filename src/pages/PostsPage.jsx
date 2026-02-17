@@ -5,7 +5,6 @@ import facesImage from '../images/face.png'
 import people from '../images/people.jpg'
 import styles from '../styles/mainPage.module.css'
 import {PostItem} from '../components/PostItem.jsx'
-import {PopularPost} from '../components/PopularPost.jsx'
 import  {getAllPosts}  from '../redux/features/post/postSlice.js';
 
 

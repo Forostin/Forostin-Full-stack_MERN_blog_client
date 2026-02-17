@@ -1,8 +1,13 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from '../../../utils/axios.js';
 
+
 const initialState = {
     posts: [],
+    // posts: {
+    //          byId: {},
+    //          allIds: []
+    //        },
     popularPosts: [],
     loading: false 
 };
@@ -19,6 +24,7 @@ export const createPost = createAsyncThunk('post/createPost',
     }      
 )
 
+
 export const getAllPosts = createAsyncThunk( 'posts/getAllPosts',
    async () => {
        try {
@@ -28,6 +34,17 @@ export const getAllPosts = createAsyncThunk( 'posts/getAllPosts',
                console.log(error)
        }
    }
+)
+
+export const getMyPosts = createAsyncThunk( 'post/getMyPosts',
+   async () => {
+      try {
+         const { data } = await axios.get('/posts/me')
+         return data
+      } catch (error) {
+         console.log(error)
+      }
+  }
 )
 
 export const removePost = createAsyncThunk('post/removePost',
@@ -40,6 +57,14 @@ export const removePost = createAsyncThunk('post/removePost',
        }
    }
 )
+
+
+export const updatePost = createAsyncThunk('post/updatePost',
+   async (updatedPost) => {
+      const { data } = await axios.put(`posts/${updatedPost}`, updatedPost);
+      return data;
+  }
+);
 
 
 export const postSlice = createSlice(
@@ -56,6 +81,15 @@ export const postSlice = createSlice(
                     state.loading = false;
                     state.posts.push(action.payload);
                   })  
+
+                // builder.addCase(createPost.fulfilled, (state, action) => {
+                //     state.loading = false;
+
+                //     const post = action.payload
+                //     state.posts.byId[post._id] = post
+                //     state.posts.allIds.unshift(post._id)
+                //    })
+                  
                 builder.addCase(createPost.rejected, (state) => {
                     state.loading = false;
                   })
@@ -84,9 +118,66 @@ export const postSlice = createSlice(
                       (post) => post._id !== action.payload._id 
                     )
                   })
+
+                // builder.addCase(removePost.fulfilled, (state, action) => {
+                //     const id = action.payload._id
+
+                //     delete state.posts.byId[id]
+                //     state.posts.allIds = state.posts.allIds.filter(
+                //     postId => postId !== id
+                //     )
+                //   })
+                  
                 builder.addCase(removePost.rejected, (state) => {
                     state.loading = false;
                   })
+
+                         
+          //  Редактирование поста       
+                builder.addCase(updatePost.pending, (state) => {
+                    state.loading = true;
+                  })
+                builder.addCase(updatePost.fulfilled, (state, action) => {
+                    state.loading = false;
+                    const index = state.posts.findIndex(
+                            (post) => post._id === action.payload._id
+                          );
+                          if (index !== -1) {
+                            state.posts[index] = action.payload;
+                          }
+                  })
+               
+                // builder.addCase(updatePost.fulfilled, (state, action) => {
+                //     state.loading = false;
+ 
+                //     state.posts = state.posts.map((post) =>
+                //          post._id === action.payload._id
+                //          ? action.payload
+                //          : post
+                //     )
+                //   })
+                // builder.addCase(updatePost.fulfilled, (state, action) => {
+                //         const post = action.payload
+                //         state.posts.byId[post._id] = post
+                //   })
+
+                builder.addCase(updatePost.rejected, (state) => {
+                    state.loading = false;
+                  })
+
+          // My Posts
+                builder.addCase(getMyPosts.pending, (state) => {
+                  state.loading = true;
+                })
+
+                builder.addCase(getMyPosts.fulfilled, (state, action) => {
+                  state.loading = false;
+                  state.posts = action.payload; // сервер возвращает массив постов
+                })
+
+                builder.addCase(getMyPosts.rejected, (state) => {
+                  state.loading = false;
+                })
                 
       } 
     }
