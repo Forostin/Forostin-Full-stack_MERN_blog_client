@@ -1,8 +1,11 @@
 import {Layout}  from './components/Layout.jsx';
 import {Routes, Route} from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { getMe } from './redux/features/auth/authSlice.js';
+
+import { getMe, checkIsAuth } from './redux/features/auth/authSlice.js';
+import { getAllPosts } from './redux/features/post/postSlice.js';
+
 
 import { MainPage } from './pages/MainPage.jsx';
 import { PostsPage } from './pages/PostsPage.jsx';
@@ -20,6 +23,14 @@ function App() {
   const dispatch = useDispatch()
 
   useEffect(()=>{ dispatch(getMe()) }, [dispatch])
+
+  const isAuth = useSelector(checkIsAuth)
+
+  useEffect(() => {
+     if (isAuth) {
+         dispatch(getAllPosts())
+     }
+    }, [isAuth])
   return( 
    <Layout>
      <Routes>

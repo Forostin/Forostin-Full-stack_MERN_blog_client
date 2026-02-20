@@ -11,24 +11,14 @@ import { getMyPosts } from '../redux/features/post/postSlice.js';
 export const MyPostsPage = ()=>{
     const dispatch = useDispatch();
     const { posts, loading } = useSelector((state) => state.post);
-    // const [posts, setPosts]  = useState([]);
 
-    // const fetchMyPosts = async ()=>{
-    //     try {
-    //          const {data} = await axios.get('/posts/me')
-    //          setPosts(data);
-    //     } catch (error) {
-    //          console.log(error)
-    //     }
-    // }
+const { user } = useSelector(state => state.auth)
 
-    // useEffect(()=>{
-    //     fetchMyPosts()
-    //  }, []) 
- 
-     useEffect(()=>{
-        dispatch(getMyPosts());
-     },[dispatch]);
+const myPosts = posts.allIds
+  .map(id => posts.byId[id])
+  .filter(post => post.user === user._id)
+  console.log(myPosts)
+
     
     if (loading) return <div>Загрузка...</div>
 
@@ -43,8 +33,9 @@ export const MyPostsPage = ()=>{
                <div className={styles.text}> 
                   <h3>Для возможности оставлять комментарии пройдите авторизацию.</h3>
                   {
-                        posts?.map((post, index)=>(
-                          <PostItem key={index} post={post} />
+                        //   posts?.map((post, index)=>(
+                        myPosts?.map((post)=>(
+                          <PostItem key={post._id} post={post} />
                         ))
                   }
                </div>

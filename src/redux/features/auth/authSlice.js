@@ -96,7 +96,7 @@ export const authSlice = createSlice({
             state.isLoading = false
           })
 
-        // Проверка авторизации getMe  
+        // Проверка авторизации getMe чтобы запомнить пароль. 
         builder.addCase(getMe.pending, (state) => {
           state.isLoading = true
           state.status = null
@@ -109,7 +109,6 @@ export const authSlice = createSlice({
           state.token = action.payload?.token
         })  
         builder.addCase(getMe.rejected, (state, action) => {
-          // state.status = action.payload.message
           state.status = null
           state.isLoading = false
         })

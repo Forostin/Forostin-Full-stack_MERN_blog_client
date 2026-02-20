@@ -3,11 +3,12 @@ import axios from '../../../utils/axios.js';
 
 
 const initialState = {
-    posts: [],
-    // posts: {
-    //          byId: {},
-    //          allIds: []
-    //        },
+    // posts: [],
+    // Храним посты в виде объекта, а не массива: 
+    posts: {
+             byId: {},
+             allIds: []
+           },
     popularPosts: [],
     loading: false 
 };
@@ -36,16 +37,7 @@ export const getAllPosts = createAsyncThunk( 'posts/getAllPosts',
    }
 )
 
-export const getMyPosts = createAsyncThunk( 'post/getMyPosts',
-   async () => {
-      try {
-         const { data } = await axios.get('/posts/me')
-         return data
-      } catch (error) {
-         console.log(error)
-      }
-  }
-)
+
 
 export const removePost = createAsyncThunk('post/removePost',
    async ( id ) => {
@@ -77,18 +69,18 @@ export const postSlice = createSlice(
                     state.loading = true;
                   })
         
-                builder.addCase(createPost.fulfilled, (state, action) => {
-                    state.loading = false;
-                    state.posts.push(action.payload);
-                  })  
-
                 // builder.addCase(createPost.fulfilled, (state, action) => {
                 //     state.loading = false;
+                //     state.posts.push(action.payload);
+                //   })  
 
-                //     const post = action.payload
-                //     state.posts.byId[post._id] = post
-                //     state.posts.allIds.unshift(post._id)
-                //    })
+                builder.addCase(createPost.fulfilled, (state, action) => {
+                    state.loading = false;
+
+                    const post = action.payload
+                    state.posts.byId[post._id] = post
+                    state.posts.allIds.unshift(post._id)
+                   })
                   
                 builder.addCase(createPost.rejected, (state) => {
                     state.loading = false;
@@ -98,11 +90,28 @@ export const postSlice = createSlice(
                     state.loading = true;
                   })
         
+                // builder.addCase(getAllPosts.fulfilled, (state, action) => {
+                //     state.loading = false;
+                //     state.posts = action.payload.posts;
+                //     state.popularPosts = action.payload.popularPosts;
+                //   })
+
                 builder.addCase(getAllPosts.fulfilled, (state, action) => {
-                    state.loading = false;
-                    state.posts = action.payload.posts;
-                    state.popularPosts = action.payload.popularPosts;
+                       state.loading = false
+
+                       const posts = action.payload.posts
+
+                       state.posts.byId = {}
+                       state.posts.allIds = []
+
+                       posts.forEach(post => {
+                           state.posts.byId[post._id] = post
+                           state.posts.allIds.push(post._id)
+                       })
+
+                      state.popularPosts = action.payload.popularPosts
                   })
+
  
                 builder.addCase(getAllPosts.rejected, (state) => {
                     state.loading = false;
@@ -112,21 +121,21 @@ export const postSlice = createSlice(
                 builder.addCase(removePost.pending, (state) => {
                     state.loading = true;
                   })
-                builder.addCase(removePost.fulfilled, (state, action) => {
-                    state.loading = false;
-                    state.posts = state.posts.filter( 
-                      (post) => post._id !== action.payload._id 
-                    )
-                  })
-
                 // builder.addCase(removePost.fulfilled, (state, action) => {
-                //     const id = action.payload._id
-
-                //     delete state.posts.byId[id]
-                //     state.posts.allIds = state.posts.allIds.filter(
-                //     postId => postId !== id
+                //     state.loading = false;
+                //     state.posts = state.posts.filter( 
+                //       (post) => post._id !== action.payload._id 
                 //     )
                 //   })
+
+                builder.addCase(removePost.fulfilled, (state, action) => {
+                    const id = action.payload._id
+
+                    delete state.posts.byId[id]
+                    state.posts.allIds = state.posts.allIds.filter(
+                    postId => postId !== id
+                    )
+                  })
                   
                 builder.addCase(removePost.rejected, (state) => {
                     state.loading = false;
@@ -137,15 +146,15 @@ export const postSlice = createSlice(
                 builder.addCase(updatePost.pending, (state) => {
                     state.loading = true;
                   })
-                builder.addCase(updatePost.fulfilled, (state, action) => {
-                    state.loading = false;
-                    const index = state.posts.findIndex(
-                            (post) => post._id === action.payload._id
-                          );
-                          if (index !== -1) {
-                            state.posts[index] = action.payload;
-                          }
-                  })
+                // builder.addCase(updatePost.fulfilled, (state, action) => {
+                //     state.loading = false;
+                //     const index = state.posts.findIndex(
+                //             (post) => post._id === action.payload._id
+                //           );
+                //           if (index !== -1) {
+                //             state.posts[index] = action.payload;
+                //           }
+                //   })
                
                 // builder.addCase(updatePost.fulfilled, (state, action) => {
                 //     state.loading = false;
@@ -156,28 +165,14 @@ export const postSlice = createSlice(
                 //          : post
                 //     )
                 //   })
-                // builder.addCase(updatePost.fulfilled, (state, action) => {
-                //         const post = action.payload
-                //         state.posts.byId[post._id] = post
-                //   })
+                builder.addCase(updatePost.fulfilled, (state, action) => {
+                        const post = action.payload
+                        state.posts.byId[post._id] = post
+                  })
 
                 builder.addCase(updatePost.rejected, (state) => {
                     state.loading = false;
                   })
-
-          // My Posts
-                builder.addCase(getMyPosts.pending, (state) => {
-                  state.loading = true;
-                })
-
-                builder.addCase(getMyPosts.fulfilled, (state, action) => {
-                  state.loading = false;
-                  state.posts = action.payload; // сервер возвращает массив постов
-                })
-
-                builder.addCase(getMyPosts.rejected, (state) => {
-                  state.loading = false;
-                })
                 
       } 
     }
