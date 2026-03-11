@@ -29,7 +29,8 @@ export const PopularPost = ({popularPosts})=>{
              <div className={styles.title}>заголовок статті : "{popularPosts.title}"</div>
             {/* <div>IMAGE</div> */}
             <div>
-                <div className={styles.user}>автор :</div>    
+                {/* <div className={styles.user}>автор : {popularPosts.user}</div>   */}
+                <div className={styles.user}>автор : {popularPosts.user.fullName}</div>    
                 <div className={styles.data}>data :{formattedDate}</div>
             </div>         
            

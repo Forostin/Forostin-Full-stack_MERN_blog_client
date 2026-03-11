@@ -33,7 +33,7 @@ export const Navbar = ()=>{
                     <NavLink 
                        to = { '/' }
                        className={ ( {isActive} ) => isActive  ?  styles.link_active : styles.link_a }
-                    > Главная
+                    > Головна
                     </NavLink>
                 </li>
 
@@ -42,7 +42,7 @@ export const Navbar = ()=>{
                        to = { '/posts' }
                        href='/posts' 
                        className={ ( {isActive} ) => isActive  ?  styles.link_active : styles.link_a }
-                       > Посты
+                       > Пости
                     </NavLink>
                 </li>
                
@@ -53,7 +53,7 @@ export const Navbar = ()=>{
                        to = { '/posts/me' }
                        href='/posts' 
                        className={ ( {isActive} ) => isActive  ?  styles.link_active : styles.link_a }
-                       >Мои Посты
+                       >Мої Пости
                     </NavLink>
                 </li>
                } 
@@ -64,7 +64,7 @@ export const Navbar = ()=>{
                           to = { '/new' } 
                           href='/new' 
                           className={ ( {isActive} ) => isActive  ?  styles.link_active : styles.link_a }
-                          > Добавить пост
+                          > Додати пост
                       </NavLink>
                  </li>
                }
@@ -72,9 +72,9 @@ export const Navbar = ()=>{
              </ul>
              <div className={styles.block_button}>
                { isAuth ? (
-                           <button onClick={logoutHandler}> Выйти </button>
+                           <button onClick={logoutHandler}> Вийти </button>
                            ) : (
-                           <Link to={'/login'}> <button>Авторизация</button> </Link> )
+                           <Link to={'/login'}> <button>Авторизація</button> </Link> )
                }
              </div>
       </div>

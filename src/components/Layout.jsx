@@ -5,7 +5,7 @@ import {Navbar} from './Navbar.jsx'
 export const Layout = ({children})=>{
     return(
         <React.Fragment>
-               <div>layout
+               <div>
                    <Navbar />
                    {children}
                </div>

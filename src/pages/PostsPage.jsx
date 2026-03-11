@@ -11,26 +11,26 @@ import  {getAllPosts}  from '../redux/features/post/postSlice.js';
 export const PostsPage = ()=>{
     const dispatch = useDispatch();
      const { posts, popularPosts } = useSelector((state) => state.post);
-//========================================
+
 // const { posts, popularPosts } = useSelector((state) => state.post)
 
 const postsArray = posts.allIds.map(id => posts.byId[id])
-//==========================================
+
     useEffect(()=>{
         dispatch(getAllPosts())  
      }, [dispatch]) 
-    console.log(posts)
-     console.log(popularPosts)
+    // console.log(posts)
+    //  console.log(popularPosts)
     if (!posts.allIds.length){
         return (
                 <div> 
-                        Постов не найдено.
+                        Завантаження...
                 </div>
         )
     }
     return <div className={styles.wrapPosts} >
                <div className={styles.text}> 
-                  <h3>Для возможности оставлять комментарии пройдите авторизацию.</h3>
+                  <h3>Для можливості залишати коментарі пройдіть авторизацію.</h3>
                   {
                         // posts?.map((post, index)=>(
                         //   <PostItem key={index} post={post} />

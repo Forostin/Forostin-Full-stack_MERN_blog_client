@@ -57,3 +57,50 @@
 .button{
   margin: 10px;
 }
+
+.formComment{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    color: rgb(2, 41, 74);
+    text-align: center;  
+    padding: 5px;  
+    margin: 5%;
+    background-color: rgb(93, 94, 93);
+    border-radius: 10px;
+
+    position: relative;
+}
+
+.labelForm{
+    font-size: 20px;
+    margin: 5px;
+}
+
+.inputText{
+    font-size: 15px;
+    padding: 5px;
+    margin-left: 10px;
+    background-color: rgb(219, 218, 218);
+    border-color: rgb(3, 75, 137);
+    border-radius: 5px;
+    width: 50%;
+}
+
+.buttonAddComment{
+    background: rgb(125, 132, 197);
+    margin: 20px;
+    text-align: center;
+    padding: 5px;
+}.buttonCancel{
+    background: rgb(245, 96, 187);
+    margin: 20px;
+    text-align: center;
+    padding: 5px;
+}
+
+.wrapButton {
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+}

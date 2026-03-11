@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import facesImage from '../images/face.png'
 import people from '../images/people.jpg'
 import styles from '../styles/mainPage.module.css'
-import {PostItem} from '../components/PostItem.jsx'
 import {PopularPost} from '../components/PopularPost.jsx'
 import  {getAllPosts}  from '../redux/features/post/postSlice.js';
 
@@ -13,7 +12,7 @@ export const MainPage = ()=>{
     const dispatch = useDispatch();
 
     const { posts, popularPosts } = useSelector((state) => state.post);
-   // =========================================
+ 
     useEffect(()=>{
         dispatch(getAllPosts())  
      }, [dispatch]) 
@@ -28,14 +27,14 @@ export const MainPage = ()=>{
     if (!popularPosts){
         return (
                 <div> 
-                        Постов не найдено.
+                        Завантаження...
                 </div>
         )
     }
     return <div className={styles.facesWrap} >
                <div className={styles.text}> 
-                  <h1>Добро пожаловать в наш блог!</h1>
-                  <h3>Для возможности оставлять комментарии пройдите авторизацию.</h3>                 
+                  <h1>Ласкаво просимо до нашого блогу!</h1>
+                  <h3>Для можливості залишати коментарі пройдіть авторизацію.</h3>                 
                </div>
                <div className={styles.postsBlock}>
                   <p className={styles.title}>Популярне :</p>

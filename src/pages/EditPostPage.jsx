@@ -2,6 +2,7 @@ import React , {useCallback, useState, useEffect} from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 
+
 import axios from '../utils/axios';
 import styles from '../styles/addPostPage.module.css';
 import { updatePost } from '../redux/features/post/postSlice';
@@ -43,8 +44,9 @@ export const EditPostPage = ()=>{
 
         const clearFormHandler = ()=>{
             setTitle('');
-            setText('')
-        }
+            setText('');
+            navigate('/posts/me');
+        };
 
         useEffect(() => {
             fetchPost()

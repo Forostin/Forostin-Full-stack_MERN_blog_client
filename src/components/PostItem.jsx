@@ -1,5 +1,6 @@
 import React from "react";
-import { AiFillEye, AiOutlineMessage } from 'react-icons/ai'
+
+import { AiFillEye, AiOutlineMessage, AiTwotoneDelete, AiTwotoneEdit } from 'react-icons/ai';
 
 import styles from '../styles/post.module.css';
 import { Link } from "react-router-dom";
@@ -12,6 +13,9 @@ export const PostItem = ({post})=>{
                 </div>
         )
     }
+  
+
+
   // ✅ Форматирование даты 
   const date = new Date(post.createdAt);
   const formattedDate = date.toLocaleString("ru-RU", {
@@ -39,7 +43,7 @@ export const PostItem = ({post})=>{
                 }      
             </div>
             <div>
-                <div className={styles.user}>автор : {post.user}</div>    
+                <div className={styles.user}>автор : {post.user.fullName}</div>    
                 <div className={styles.data}>data : {formattedDate}</div>
             </div>         
             

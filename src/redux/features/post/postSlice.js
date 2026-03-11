@@ -69,11 +69,6 @@ export const postSlice = createSlice(
                     state.loading = true;
                   })
         
-                // builder.addCase(createPost.fulfilled, (state, action) => {
-                //     state.loading = false;
-                //     state.posts.push(action.payload);
-                //   })  
-
                 builder.addCase(createPost.fulfilled, (state, action) => {
                     state.loading = false;
 
@@ -89,12 +84,6 @@ export const postSlice = createSlice(
                 builder.addCase(getAllPosts.pending, (state) => {
                     state.loading = true;
                   })
-        
-                // builder.addCase(getAllPosts.fulfilled, (state, action) => {
-                //     state.loading = false;
-                //     state.posts = action.payload.posts;
-                //     state.popularPosts = action.payload.popularPosts;
-                //   })
 
                 builder.addCase(getAllPosts.fulfilled, (state, action) => {
                        state.loading = false
@@ -121,14 +110,9 @@ export const postSlice = createSlice(
                 builder.addCase(removePost.pending, (state) => {
                     state.loading = true;
                   })
-                // builder.addCase(removePost.fulfilled, (state, action) => {
-                //     state.loading = false;
-                //     state.posts = state.posts.filter( 
-                //       (post) => post._id !== action.payload._id 
-                //     )
-                //   })
-
+             
                 builder.addCase(removePost.fulfilled, (state, action) => {
+                    state.loading = false;
                     const id = action.payload._id
 
                     delete state.posts.byId[id]
@@ -146,26 +130,10 @@ export const postSlice = createSlice(
                 builder.addCase(updatePost.pending, (state) => {
                     state.loading = true;
                   })
-                // builder.addCase(updatePost.fulfilled, (state, action) => {
-                //     state.loading = false;
-                //     const index = state.posts.findIndex(
-                //             (post) => post._id === action.payload._id
-                //           );
-                //           if (index !== -1) {
-                //             state.posts[index] = action.payload;
-                //           }
-                //   })
-               
-                // builder.addCase(updatePost.fulfilled, (state, action) => {
-                //     state.loading = false;
- 
-                //     state.posts = state.posts.map((post) =>
-                //          post._id === action.payload._id
-                //          ? action.payload
-                //          : post
-                //     )
-                //   })
+             
                 builder.addCase(updatePost.fulfilled, (state, action) => {
+                        state.loading = false;
+
                         const post = action.payload
                         state.posts.byId[post._id] = post
                   })

@@ -2,22 +2,36 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector} from 'react-redux'
 import { AiFillEye, AiOutlineMessage, AiTwotoneDelete, AiTwotoneEdit } from 'react-icons/ai';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { toast } from 'react-toastify'
+import { toast } from 'react-toastify';
+import { useMemo } from 'react';
 
 import axios from '../utils/axios';
 import styles from '../styles/post.module.css';
 import { removePost } from '../redux/features/post/postSlice';
+import { createComment, getCommentsByPost, selectCommentsByPost,  makeSelectCommentsByPost  } from '../redux/features/comments/commentSlice';
+import { Comment } from '../components/Comment.jsx'
 
 export const PostPage = ()=>{
-   const [post, setPost] = useState(null);
-   const params = useParams();
-   const {user} = useSelector((state) => state.auth);
-   const dispatch = useDispatch();
-   const navigate = useNavigate();
+   const [post, setPost] = useState(null)
+   const { id } = useParams()
+   const { user } = useSelector((state) => state.auth)
+   const dispatch = useDispatch()
+   const navigate = useNavigate()
+   const [comment, setComment] = useState('')
+  
+   
+
+   const selectComments = useMemo(
+     () => makeSelectCommentsByPost(id),
+     [id]
+   );
+   const comments = useSelector(selectComments);
+
+// ===============
 
    const removePostHandler = () => {
        try {
-          dispatch(removePost(params.id))
+          dispatch(removePost(id))
           toast('Стаття була видалена')
           navigate('/posts')
        } catch (error) {
@@ -25,21 +39,50 @@ export const PostPage = ()=>{
        }
    }
    
-    useEffect(() => {
-        axios.get(`/posts/${params.id}`).then(({ data }) => {
-               setPost(data);
-        });
-    }, [params.id]);
-  
-    if (!post){
-        return (
+   useEffect(() => {
+      axios.get(`/posts/${id}`).then(({ data }) => {
+         setPost(data)
+      })
+
+      dispatch(getCommentsByPost(id))
+
+   }, [id, dispatch])  
+
+   //   const handlerSubmit = () => {
+   //         dispatch(createComment({ id, comment }))
+   //         setComment('')
+   //  };
+     
+   const handlerSubmit = async () => {
+      if (!comment.trim()) return
+
+      try {
+        await dispatch(
+         createComment({
+               postId: id,
+               text: comment
+         })
+      ).unwrap()
+
+      setComment('')
+     } catch (error) {
+        console.error(error)
+     };
+   };
+ 
+   const clearFormHandler = ()=>{
+      setComment('');
+   };
+
+
+       if (!post){
+          return (
                 <div> 
-                        Статті не знайдено.
+                        Завантаження...
                 </div>
         )};
-    console.log(post)
 
-//  ✅ Форматирование даты 
+    //  ✅ Форматирование даты 
   const date = new Date(post.createdAt);
   const formattedDate = date.toLocaleString("ru-RU", {
     day: "2-digit",
@@ -48,6 +91,7 @@ export const PostPage = ()=>{
     hour: "2-digit",
     minute: "2-digit",
   });  
+    
 
     return ( 
       <div>
@@ -68,7 +112,7 @@ export const PostPage = ()=>{
                                 }      
                             </div>
                             <div>
-                                <div className={styles.user}>автор : {post.user}</div>    
+                                <div className={styles.user}>автор : {post.user.fullName}</div>    
                                 <div className={styles.data}>data : {formattedDate}</div>
                             </div>         
                             
@@ -77,7 +121,8 @@ export const PostPage = ()=>{
                             <div className={styles.user}><AiFillEye /> <span>{post.viewsCount}</span> </div>    
                             <div className={styles.data}><AiOutlineMessage /> <span>{post.comments?.length}</span> </div>
 
-                            { user?._id===post.user && (
+                           
+                            {post.user?._id === user?._id && (
                                 <div className={styles.buttonWrap}>
                                    <button  
                                       onClick={removePostHandler} 
@@ -85,7 +130,7 @@ export const PostPage = ()=>{
                                       >видалити <AiTwotoneDelete />
                                    </button>
                                    <button className={styles.button}>
-                                     <Link to={`/${params.id}/edit`}>
+                                     <Link to={`/${id}/edit`}>
                                          редагувати <AiTwotoneEdit /> 
                                      </Link>
                                    </button> 
@@ -93,7 +138,37 @@ export const PostPage = ()=>{
                                )
                             }
              </div>
-             <div>Коментарі :</div>   
+             <div>Коментарі : 
+                {
+                  comments?.map((cmt) => (
+                    <Comment key={cmt._id} cmt={cmt}/> 
+                  ))
+                }
+                <form  className={styles.formComment} onSubmit={e=>e.preventDefault()}>
+                    <label className={styles.labelForm}>
+                        Коментар:
+                         <input 
+                                type='text'
+                                placeholder='Коментар' 
+                                className={styles.inputText}
+                                value={comment}
+                                onChange = {(e) => setComment( e.target.value )}      
+                         />
+                    </label>
+
+                    <div className={styles.wrapButton}>
+                       <button
+                            className={styles.buttonAddComment} 
+                            onClick={handlerSubmit} 
+                       >Добавити</button>
+                       <button 
+                            className={styles.buttonCancel}
+                            onClick={clearFormHandler}
+                       >Скасувати</button>
+                    </div>
+          
+                 </form>    
+             </div>   
          </div>     
       
       </div>

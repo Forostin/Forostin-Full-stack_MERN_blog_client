@@ -37,7 +37,7 @@ export const AddPostPage = ()=>{
                className={styles.formPost}
         >
             
-           <label className={styles.labelForm}>Прикрепить изображение:
+           <label className={styles.labelForm}>Прикріпити зображення:
                <input 
                      type='file' 
                      className={styles.inputText}
@@ -53,7 +53,7 @@ export const AddPostPage = ()=>{
            
 
            <label className={styles.labelForm}>
-              Заголовок поста:
+              Заголовок посту:
               <input 
                     type='text'
                     placeholder='Заголовок' 
@@ -64,11 +64,11 @@ export const AddPostPage = ()=>{
            </label>
 
            <label className={styles.labelForm}>
-               Текст поста :
+               Текст посту :
                
            </label>
            <textarea 
-                   placeholder='Текст поста'
+                   placeholder='Текст посту'
                    className={styles.inputText}
                    value={text}
                    onChange={(e) => setText( e.target.value )}
@@ -77,11 +77,11 @@ export const AddPostPage = ()=>{
               <button
                    className={styles.buttonAddPost} 
                    onClick={submitHandler} 
-              >Добавить</button>
+              >Додати</button>
               <button 
                    className={styles.buttonCancel}
                    onClick={clearFormHandler}
-                   >Отменить</button>
+                   >Скасувати</button>
            </div>
           
         </form> 
